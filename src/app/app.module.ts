@@ -52,6 +52,7 @@ import { AddProductComponent } from './views/products/add-product/add-product.co
 import { ProductListComponent } from './views/products/product-list/product-list.component';
 import { FormsModule } from '@angular/forms';
 import { InventoryComponent } from './views/products/inventory/inventory.component';
+import { OrderModule } from './views/order/order.module';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { InventoryComponent } from './views/products/inventory/inventory.compone
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    OrderModule
   ],
   declarations: [
     AppComponent,

@@ -34,10 +34,10 @@
                 <h3 class="text-center">Add/Update Inventory</h3>
             </div>
             <div class="card-body">
-                <form #form="ngForm" (ngSubmit)="onSubmit(form)" autocomplete="off">
+                <form #form="ngForm" (ngSubmit)="onSubmit()">
                     <input type="hidden" name="id" #id="ngModel" [(ngModel)]="inventory.id">
                     <div class="form-group">
-                        <label for="name">Product Name</label>
+                        <label for="product">Product Name</label>
                         <select name="product" class="form-control" [(ngModel)]="inventory.productId">
                             <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
                         </select>

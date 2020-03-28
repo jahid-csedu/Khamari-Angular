@@ -17,6 +17,10 @@ export class InventoryService {
     return this.firestore.collection('inventory').snapshotChanges();
   }
 
+  getInventoryByProductId(productId:string) {
+    return this.firestore.collection('inventory').ref.where('productId', '==', productId).get();
+  }
+
   updateInventory(inventory: Inventory) {
     let temp = Object.assign({}, inventory);
     delete inventory.id;

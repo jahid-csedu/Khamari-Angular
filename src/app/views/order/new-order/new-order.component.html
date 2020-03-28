@@ -1,0 +1,93 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-center">Add New Order</h3>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" autocomplete="off">
+            <input type="hidden" formControlName="orderId">
+            <div class="form-group">
+                <label for="orderDate">Order Date</label>
+                <input type="date" class="form-control col-lg-2 col-md-3 col-sm-4" formControlName="orderDate">
+            </div>
+            <div formArrayName="itemList" *ngFor="let item of orderItems.controls; let i=index">
+                <div [formGroupName]="i">
+                    <div class="form-row">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label for="productId">Product Name</label>
+                            <select formControlName="productId" class="form-control" (change)="onProductChange($event.target.value)">
+                                <option value="" disabled>Select Product</option>
+                                <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label for="unit">Product Unit</label>
+                            <select formControlName="unit" class="form-control" (change)="onInventoryChange($event.target.value)">
+                                <option value="" disabled>Select Unit</option>
+                                <option *ngFor="let inventory of inventoryList" [value]="inventory.id">
+                                    {{inventory.unit}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" formControlName="price" value="{{price?price:'0'}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label for="discount">Discount</label>
+                            <input type="number" class="form-control" formControlName="discount" value="0">
+                            <div class="text-info">Per unit discount</div>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" formControlName="quantity" value="0">
+                            <div class="text-info">{{ stock }} item(s) in stock</div>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label for="total">Total</label>
+                            <input type="number" class="form-control" formControlName="total" value="0" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-sm btn-primary" (click)="addItem()"><i
+                        class="fa fa-plus"></i>&nbsp;Add Product</button>
+            </div>
+            <div class="form-group">
+                <label for="customerName">Customer Name</label>
+                <input type="text" class="form-control" formControlName="customerName"
+                    placeholder="Enter customer name">
+            </div>
+            <div class="form-group">
+                <label for="deliveryAddress">Delivery Address</label>
+                <textarea rows="2" class="form-control" formControlName="deliveryAddress"
+                    placeholder="Enter Customer Address"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="orderStatus">Order Status</label>
+                <select formControlName="orderStatus" class="form-control">
+                    <option value="P">Processing</option>
+                    <option value="D">Delivered</option>
+                    <option value="C">Cancelled</option>
+                    <option value="R">Returned</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-2 col-md-3 col-sm-4">
+                    <label for="deliveryDate">Delivery Date</label>
+                    <input type="date" class="form-control" formControlName="deliveryDate">
+                </div>
+                <div class="form-group col-lg-10 col-md-9 col-sm-8">
+                    <label for="deliveredBy">Delivered By</label>
+                    <input type="text" class="form-control" formControlName="deliveredBy" placeholder="Enter name">
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary mr3">SUBMIT</button>
+                <button type="button" (click)="resetForm()" class="btn btn-danger ml-3">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
