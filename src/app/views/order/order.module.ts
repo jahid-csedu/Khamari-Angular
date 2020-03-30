@@ -5,6 +5,7 @@ import { OrderRoutingModule } from './order-routing.module';
 import { NewOrderComponent } from './new-order/new-order.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     OrderRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule
   ]
 })
 export class OrderModule { }

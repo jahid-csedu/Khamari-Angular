@@ -1,1 +1,114 @@
-<p>order-list works!</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-center">Order List</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <th>Order Date</th>
+                <th>Invoice No.</th>
+                <th>Customer Name</th>
+                <th>Delivery Address</th>
+                <th>Order Amount</th>
+                <th>Order Status</th>
+                <th>Update Status</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders">
+                    <td>{{ order.orderDate }}</td>
+                    <td>{{ order.invoiceNo }}</td>
+                    <td>{{ order.customerName }}</td>
+                    <td>{{ order.deliveryAddress }}</td>
+                    <td>{{ order.orderAmount }}</td>
+                    <td>{{ orderStatusMap.get(order.orderStatus) }}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-info" (click)="openEdit(order)"><i class="fa fa-edit"></i>&nbsp;Update Status</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Order Status</h4>
+                <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onUpdateStatus()" autocomplete="off">
+                    <div class="form-row">
+                        <div class="form-group col-lg-4 col-md-4 col-sm-6">
+                            <label for="invoiceNo">Invoice No.</label>
+                            <input type="text" class="form-control" name="invoiceNo" [value]="updatedOrder.invoiceNo" disabled>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4 col-sm-6">
+                            <label for="orderDate">Order Date</label>
+                            <input type="date" class="form-control" name="orderDate" [value]="updatedOrder.orderDate" disabled>
+                        </div>
+                    </div>
+                    <div *ngFor="let item of updatedOrder.items">
+                            <div class="form-row">
+                                <div class="form-group col-md-4 col-lg-4">
+                                    <label for="product">Product Name</label>
+                                    <input name="product" class="form-control" [value]="inventoryProductMap.get(item.inventoryId)" disabled>
+                                </div>
+                                <div class="form-group col-md-4 col-lg-4">
+                                    <label for="unit">Product Unit</label>
+                                    <input name="unit" class="form-control" [value]="inventoryUnitMap.get(item.inventoryId)" disabled>
+                                </div>
+                                <div class="form-group col-md-2 col-lg-2">
+                                    <label for="discount">Discount</label>
+                                    <input type="number" class="form-control" name="discount" [value]="item.discount" disabled>
+                                </div>
+                                <div class="form-group col-md-2 col-lg-2">
+                                    <label for="quantity">Quantity</label>
+                                    <input type="number" class="form-control" name="quantity"
+                                        [value]="item.quantity" disabled>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" class="form-control" name="customerName" [(ngModel)]="updatedOrder.customerName">
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryAddress">Delivery Address</label>
+                        <textarea rows="2" class="form-control" name="deliveryAddress" [(ngModel)]="updatedOrder.deliveryAddress">{{updatedOrder.deliveryAddress}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderStatus">Order Status</label>
+                        <select name="orderStatus" class="form-control" [(ngModel)]="updatedOrder.orderStatus">
+                            <option value="P">Processing</option>
+                            <option value="D">Delivered</option>
+                            <option value="C">Cancelled</option>
+                            <option value="R">Returned</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-4 col-md-4 col-sm-6">
+                            <label for="deliveryDate">Delivery/Cancel Date</label>
+                            <input type="date" class="form-control" name="deliveryDate" [(ngModel)]="updatedOrder.deliveryDate">
+                        </div>
+                        <div class="form-group col-lg-8 col-md-8 col-sm-6">
+                            <label for="deliveredBy">Delivered/Cancelled By</label>
+                            <input type="text" class="form-control" name="deliveredBy" placeholder="Enter name" [(ngModel)]="updatedOrder.deliveredBy">
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary mr3">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="editModal.hide()">Cancel</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

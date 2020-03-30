@@ -16,6 +16,10 @@ export class InventoryService {
   getInventory() {
     return this.firestore.collection('inventory').snapshotChanges();
   }
+  
+  getInventoryById(id:string) {
+    return this.firestore.collection('inventory').doc(id).get();
+  }
 
   getInventoryByProductId(productId:string) {
     return this.firestore.collection('inventory').ref.where('productId', '==', productId).get();

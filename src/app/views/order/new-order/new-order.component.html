@@ -28,16 +28,26 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="form-group col-md-2 col-lg-2">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>Price</label>
+                            <input type="number" class="form-control" [value]="inventoryPriceMap.get(orderForm.value.itemList[i].unit)" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 col-lg-4">
                             <label for="discount">Discount</label>
                             <input type="number" class="form-control" formControlName="discount">
                             <div class="text-info">Per unit discount</div>
                         </div>
-                        <div class="form-group col-md-2 col-lg-2">
+                        <div class="form-group col-md-4 col-lg-4">
                             <label for="quantity">Quantity</label>
                             <input type="number" class="form-control" formControlName="quantity"
                                 [value]="orderForm.value.itemList[i].quantity">
                             <div class="text-info">{{ inventoryStockMap.get(orderForm.value.itemList[i].unit) }} item(s) in stock</div>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>Total</label>
+                            <input type="number" class="form-control" [value]="(inventoryPriceMap.get(orderForm.value.itemList[i].unit)-orderForm.value.itemList[i].discount)*orderForm.value.itemList[i].quantity" disabled>
                         </div>
                     </div>
                 </div>

@@ -55,6 +55,18 @@ export class NewOrderComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.orderForm.get('orderDate').value == null) {
+      this.toaster.error('Please enter order date', 'Order');
+      return;
+    }
+    if(this.orderForm.get('customerName').value == null) {
+      this.toaster.error('Please enter customer name', 'Order');
+      return;
+    }
+    if(this.orderForm.get('deliveryAddress').value == null) {
+      this.toaster.error('Please enter delivery address', 'Order');
+      return;
+    }
     this.order = new Order();
     this.orderItem = [];
     this.order.orderDate = this.orderForm.get('orderDate').value;
@@ -66,6 +78,10 @@ export class NewOrderComponent implements OnInit {
     this.order.orderAmount = 0;
     for(let i=0; i<this.orderItems.length; i++) {
       if(this.orderItems.value[i].quantity > 0) {
+        if(this.orderItems.value[i].quantity > this.inventoryStockMap.get(this.orderItems.value[i].unit)) {
+          this.toaster.error('Quantity can not be more than stock amount', 'Order');
+          return;
+        }
         this.orderItem.push({
           inventoryId:this.orderItems.value[i].unit,
           discount: this.orderItems.value[i].discount,
@@ -89,6 +105,17 @@ export class NewOrderComponent implements OnInit {
       .then(
         res => {
           this.toaster.success('Order added successfully', 'Order');
+          let inventory:Inventory;
+          for(let i=0; i<this.order.items.length; i++) {
+            this.inventoryService.getInventoryById(this.order.items[i].inventoryId).subscribe(doc => {
+              inventory = {
+                id: doc.id,
+                ...doc.data() as Inventory
+              }
+              inventory.stock = inventory.stock-this.order.items[i].quantity;
+              this.inventoryService.updateInventory(inventory);
+            })
+          }
           this.resetForm();
         },
         error => {
