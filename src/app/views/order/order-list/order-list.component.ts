@@ -7,6 +7,7 @@ import { Product } from '../../../shared/models/product.model';
 import { Inventory } from '../../../shared/models/inventory.model';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
@@ -29,11 +30,6 @@ export class OrderListComponent implements OnInit {
     this.getProducts();
     this.getInventory();
     this.getAllOrders();
-
-    this.orderStatusMap.set('P', 'Processing');
-    this.orderStatusMap.set('D', 'Delivered');
-    this.orderStatusMap.set('C', 'Cancelled');
-    this.orderStatusMap.set('R', 'Returned');
   }
 
   getAllOrders() {
@@ -75,7 +71,6 @@ export class OrderListComponent implements OnInit {
         this.inventoryUnitMap.set(inventories[i].id, inventories[i].unit);
         this.inventoryProductMap.set(inventories[i].id, this.productMap.get(inventories[i].productId));
       }
-      console.log(inventories);
     });
   }
 

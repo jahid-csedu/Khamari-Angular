@@ -10,7 +10,7 @@ export class OrderService {
   constructor(private firestore:AngularFirestore) { }
 
   getAllOrders() {
-    return this.firestore.collection('orders').snapshotChanges();
+    return this.firestore.collection('orders', ref => ref.orderBy('orderDate', 'desc')).snapshotChanges();
   }
 
   getCurrentMonthOrder(fromDay:string, uptoDay:string) {

@@ -14,7 +14,7 @@ export class InventoryService {
   }
 
   getInventory() {
-    return this.firestore.collection('inventory').snapshotChanges();
+    return this.firestore.collection('inventory', ref => ref.orderBy('productId')).snapshotChanges();
   }
   
   getInventoryById(id:string) {

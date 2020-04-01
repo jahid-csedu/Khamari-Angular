@@ -12,7 +12,7 @@ export class ProductService {
   constructor(private firestore: AngularFirestore) { }
 
   getProducts() {
-    return this.firestore.collection('products').snapshotChanges();
+    return this.firestore.collection('products', ref => ref.orderBy('name')).snapshotChanges();
   }
 
   createProduct(product:Product) {

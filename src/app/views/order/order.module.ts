@@ -6,6 +6,7 @@ import { NewOrderComponent } from './new-order/new-order.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ModalModule } from 'ngx-bootstrap';
     OrderRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule
+    ModalModule,
+    DataTablesModule
   ]
 })
 export class OrderModule { }

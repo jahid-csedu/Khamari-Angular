@@ -3,15 +3,17 @@
         <h3 class="text-center">Order List</h3>
     </div>
     <div class="card-body">
-        <table class="table table-hover">
+        <table class="table table-striped table-hover">
             <thead>
-                <th>Order Date</th>
-                <th>Invoice No.</th>
-                <th>Customer Name</th>
-                <th>Delivery Address</th>
-                <th>Order Amount</th>
-                <th>Order Status</th>
-                <th>Update Status</th>
+                <tr>
+                    <th>Order Date</th>
+                    <th>Invoice No.</th>
+                    <th>Customer Name</th>
+                    <th>Delivery Address</th>
+                    <th>Order Amount</th>
+                    <th>Order Status</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let order of orders">
@@ -20,7 +22,13 @@
                     <td>{{ order.customerName }}</td>
                     <td>{{ order.deliveryAddress }}</td>
                     <td>{{ order.orderAmount }}</td>
-                    <td>{{ orderStatusMap.get(order.orderStatus) }}</td>
+                    <!-- <td>{{ orderStatusMap.get(order.orderStatus) }}</td> -->
+                    <td [ngSwitch]="order.orderStatus">
+                        <span *ngSwitchCase="'P'" class="badge badge-primary">Processing</span>
+                        <span *ngSwitchCase="'D'" class="badge badge-success">Delivered</span>
+                        <span *ngSwitchCase="'C'" class="badge badge-danger">Cancelled</span>
+                        <span *ngSwitchCase="'R'" class="badge badge-warning">Returned</span>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-sm btn-info" (click)="openEdit(order)"><i class="fa fa-edit"></i>&nbsp;Update Status</button>
                     </td>
@@ -74,9 +82,15 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="form-group">
-                        <label for="customerName">Customer Name</label>
-                        <input type="text" class="form-control" name="customerName" [(ngModel)]="updatedOrder.customerName">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-6">
+                            <label for="customerName">Customer Name</label>
+                            <input type="text" class="form-control" name="customerName" [(ngModel)]="updatedOrder.customerName">
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6">
+                            <label for="customerPhone">Customer Phone Number</label>
+                            <input type="text" class="form-control" name="customerPhone" [(ngModel)]="updatedOrder.customerPhone">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="deliveryAddress">Delivery Address</label>

@@ -34,6 +34,7 @@ export class NewOrderComponent implements OnInit {
       orderDate: [''],
       itemList: this.formBuilder.array([]),
       customerName: [''],
+      customerPhone: [''],
       deliveryAddress: [''],
       orderStatus: ['P'],
       deliveryDate: [''],
@@ -63,6 +64,10 @@ export class NewOrderComponent implements OnInit {
       this.toaster.error('Please enter customer name', 'Order');
       return;
     }
+    if(this.orderForm.get('customerPhone').value == null) {
+      this.toaster.error('Please enter customer phone number', 'Order');
+      return;
+    }
     if(this.orderForm.get('deliveryAddress').value == null) {
       this.toaster.error('Please enter delivery address', 'Order');
       return;
@@ -71,6 +76,7 @@ export class NewOrderComponent implements OnInit {
     this.orderItem = [];
     this.order.orderDate = this.orderForm.get('orderDate').value;
     this.order.customerName = this.orderForm.get('customerName').value;
+    this.order.customerPhone = this.orderForm.get('customerPhone').value;
     this.order.deliveryAddress  = this.orderForm.get('deliveryAddress').value;
     this.order.orderStatus  = this.orderForm.get('orderStatus').value;
     this.order.deliveryDate  = this.orderForm.get('deliveryDate').value;
@@ -171,6 +177,7 @@ export class NewOrderComponent implements OnInit {
   resetForm() {
     this.orderItems.clear();
     this.orderForm.reset();
+    this.orderForm.patchValue({orderStatus: 'P'})
     this.orderItems.push(this.createItem());
   }
 

@@ -53,6 +53,7 @@ import { ProductListComponent } from './views/products/product-list/product-list
 import { FormsModule } from '@angular/forms';
 import { InventoryComponent } from './views/products/inventory/inventory.component';
 import { OrderModule } from './views/order/order.module';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import { OrderModule } from './views/order/order.module';
     AngularFirestoreModule,
     FormsModule,
     ToastrModule.forRoot(),
-    OrderModule
+    OrderModule,
+    DataTablesModule
   ],
   declarations: [
     AppComponent,

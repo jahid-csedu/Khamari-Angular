@@ -6,6 +6,7 @@ export class Order {
     orderDate: string;
     items:OrderItem[];
     customerName: string;
+    customerPhone:string;
     deliveryAddress: string;
     orderAmount: number;
     orderStatus: string;
