@@ -53,15 +53,22 @@ export class UserComponent implements OnInit {
 
   onSubmit() {
     let user = this.userForm.value;
-    user.password = this.encryptionService.encrypt(user.id, user.password);
-    this.userService.createUser(user).then(res =>
-      {
-        this.toaster.success('User created successfully', 'User');
-        this.resetForm();
-      },
-      err => {
-        this.toaster.error('Could not create user', 'User')
-      })
+    this.userService.getUserById(user.id).subscribe( res => {
+      if(res.exists){//check whether the user already exists or not
+        this.toaster.error('User already exists')
+        return;
+      }else {//no user with this id
+        user.password = this.encryptionService.encrypt(user.id, user.password);
+        this.userService.createUser(user).then(res =>
+          {
+            this.toaster.success('User created successfully', 'User');
+            this.resetForm();
+          },
+          err => {
+            this.toaster.error('Could not create user', 'User')
+          })
+      }
+    })
   }
 
   onEdit(user:User) {
