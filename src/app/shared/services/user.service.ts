@@ -20,7 +20,7 @@ export class UserService {
   }
 
   getUserById(id:string) {
-    return this.fiestore.collection('users', ref => ref.where('id', '==', id)).snapshotChanges();
+    return this.fiestore.collection('users').doc(id).get();
   }
 
   updateUser(user:User) {

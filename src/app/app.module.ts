@@ -60,6 +60,7 @@ import { InventoryService } from './shared/services/inventory.service';
 import { UserService } from './shared/services/user.service';
 import { EncryptionService } from './shared/services/encryption.service';
 import { ModalModule } from 'ngx-bootstrap';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 @NgModule({
   imports: [
@@ -104,7 +105,8 @@ import { ModalModule } from 'ngx-bootstrap';
   ProductService,
   InventoryService,
   UserService,
-  EncryptionService
+  EncryptionService,
+  AuthGuard
 ],
   bootstrap: [ AppComponent ]
 })

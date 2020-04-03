@@ -11,11 +11,12 @@ import { RegisterComponent } from './views/register/register.component';
 import { ProductsComponent } from './views/products/products.component';
 import { InventoryComponent } from './views/products/inventory/inventory.component';
 import { UserComponent } from './views/user/user.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -49,6 +50,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
