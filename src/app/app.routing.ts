@@ -10,6 +10,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { ProductsComponent } from './views/products/products.component';
 import { InventoryComponent } from './views/products/inventory/inventory.component';
+import { UserComponent } from './views/user/user.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,13 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
+      {
+        path: 'users',
+        component: UserComponent,
+        data: {
+          title: 'Users'
+        }
+      },
       {
         path: 'products',
         component: ProductsComponent,

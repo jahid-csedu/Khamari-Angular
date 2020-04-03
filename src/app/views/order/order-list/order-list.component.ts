@@ -7,7 +7,6 @@ import { Product } from '../../../shared/models/product.model';
 import { Inventory } from '../../../shared/models/inventory.model';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',

@@ -50,10 +50,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProductsComponent } from './views/products/products.component';
 import { AddProductComponent } from './views/products/add-product/add-product.component';
 import { ProductListComponent } from './views/products/product-list/product-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InventoryComponent } from './views/products/inventory/inventory.component';
 import { OrderModule } from './views/order/order.module';
 import { DataTablesModule } from 'angular-datatables';
+import { UserComponent } from './views/user/user.component';
+import { ProductService } from './shared/services/product.service';
+import { InventoryService } from './shared/services/inventory.service';
+import { UserService } from './shared/services/user.service';
+import { EncryptionService } from './shared/services/encryption.service';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -72,9 +78,11 @@ import { DataTablesModule } from 'angular-datatables';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
     OrderModule,
-    DataTablesModule
+    DataTablesModule,
+    ModalModule
   ],
   declarations: [
     AppComponent,
@@ -86,12 +94,18 @@ import { DataTablesModule } from 'angular-datatables';
     ProductsComponent,
     AddProductComponent,
     ProductListComponent,
-    InventoryComponent
+    InventoryComponent,
+    UserComponent
   ],
   providers: [{
     provide: LocationStrategy,
     useClass: PathLocationStrategy
-  }],
+  },
+  ProductService,
+  InventoryService,
+  UserService,
+  EncryptionService
+],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

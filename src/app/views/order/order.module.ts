@@ -7,6 +7,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
+import { OrderService } from '../../shared/services/order.service';
 
 
 @NgModule({
@@ -18,6 +19,9 @@ import { DataTablesModule } from 'angular-datatables';
     ReactiveFormsModule,
     ModalModule,
     DataTablesModule
+  ],
+  providers: [
+    OrderService
   ]
 })
 export class OrderModule { }
