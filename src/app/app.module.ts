@@ -61,6 +61,8 @@ import { UserService } from './shared/services/user.service';
 import { EncryptionService } from './shared/services/encryption.service';
 import { ModalModule } from 'ngx-bootstrap';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { PasswordChangeComponent } from './views/password-change/password-change.component';
+import { InvoiceComponent } from './views/invoice/invoice.component';
 
 @NgModule({
   imports: [
@@ -96,7 +98,9 @@ import { AuthGuard } from './shared/guards/auth.guard';
     AddProductComponent,
     ProductListComponent,
     InventoryComponent,
-    UserComponent
+    UserComponent,
+    PasswordChangeComponent,
+    InvoiceComponent
   ],
   providers: [{
     provide: LocationStrategy,

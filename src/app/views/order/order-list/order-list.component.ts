@@ -7,6 +7,7 @@ import { Product } from '../../../shared/models/product.model';
 import { Inventory } from '../../../shared/models/inventory.model';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
@@ -23,7 +24,7 @@ export class OrderListComponent implements OnInit {
   inventoryProductMap = new Map();
   orderStatusMap = new Map();
 
-  constructor(private orderService:OrderService, private inventoryService:InventoryService, private productService:ProductService, private toaster:ToastrService) { }
+  constructor(private orderService:OrderService, private inventoryService:InventoryService, private productService:ProductService, private toaster:ToastrService, private router:Router) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -82,6 +83,10 @@ export class OrderListComponent implements OnInit {
     this.orderService.updateOrder(this.updatedOrder);
     this.editModal.hide();
     this.toaster.success('Order updated successfully', 'Order');
+  }
+
+  onGenerateInvoice(order: Order) {
+    this.router.navigateByUrl('/invoice');
   }
 
 }

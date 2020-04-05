@@ -30,7 +30,8 @@
                         <span *ngSwitchCase="'R'" class="badge badge-warning">Returned</span>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-info" (click)="openEdit(order)"><i class="fa fa-edit"></i>&nbsp;Update Status</button>
+                        <button type="button" class="btn btn-sm btn-primary" (click)="openEdit(order)"><i class="fa fa-edit"></i>&nbsp;Update</button>
+                        <button type="button" class="btn btn-sm btn-info" (click)="onGenerateInvoice(order)"><i class="fa fa-print"></i>&nbsp;Invoice</button>
                     </td>
                 </tr>
             </tbody>

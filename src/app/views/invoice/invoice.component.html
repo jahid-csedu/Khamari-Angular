@@ -1,0 +1,105 @@
+<div id="invoice">
+
+    <div class="toolbar hidden-print">
+        <div class="row">
+            <div class="text-left col-6">
+                <div class="form-group col-md-6 col-lg-6">
+                    <label for="customerPhone">Shipping Charge</label>
+                    <input type="number" class="form-control" placeholder="Enter shipping charge"
+                        [(ngModel)]="shipping">
+                </div>
+            </div>
+            <div class="text-right col-6">
+                <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+                    <div class="col">
+                        <img src="../../../assets/img/brand/Logo.png" data-holder-rendered="true" width="150px" />
+                    </div>
+                    <div class="col company-details">
+                        <h2 class="name text-success">
+                            Khamari
+                        </h2>
+                        <div>107/3, North Mugdapara, Dhaka-1214</div>
+                        <div>+88 015333 04652</div>
+                        <div>thekhamari@gmail.com</div>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <div class="text-gray-light">INVOICE TO:</div>
+                        <h2 class="to">John Doe</h2>
+                        <div class="address">796 Silver Harbour, TX 79273, US</div>
+                        <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+                    </div>
+                    <div class="col invoice-details">
+                        <h3 class="invoice-id">INVOICE#</h3>
+                        <div class="date">Date of Invoice: 01/10/2018</div>
+                    </div>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>SERIAL</th>
+                            <th class="text-left">DESCRIPTION</th>
+                            <th class="text-right">PRICE</th>
+                            <th class="text-right">DISCOUNT</th>
+                            <th class="text-right">QUANTITY</th>
+                            <th class="text-right">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="unit">04</td>
+                            <td class="text-left">
+                                <h3>
+                                    Sundarban Natural Honey
+                                </h3>
+                                1 KG
+                            </td>
+                            <td class="unit">BDT 0.00</td>
+                            <td class="qty">BDT 100</td>
+                            <td class="unit">0.00</td>
+                            <td class="qty">BDT 0.00</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>BDT 5,200.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="2">SHIPPING</td>
+                            <td>BDT {{shipping}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="2">GRAND TOTAL</td>
+                            <td>BDT 6,500.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">Thank you!</div>
+                <div class="notices">
+                    <div>NOTICE:</div>
+                    <div class="notice">If you find any problem with the product you can return within 24 hours.</div>
+                </div>
+            </main>
+            <footer>
+                Invoice was created on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>

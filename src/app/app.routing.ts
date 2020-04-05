@@ -12,6 +12,9 @@ import { ProductsComponent } from './views/products/products.component';
 import { InventoryComponent } from './views/products/inventory/inventory.component';
 import { UserComponent } from './views/user/user.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { AuthorizationGuard } from './shared/guards/authorization.guard';
+import { PasswordChangeComponent } from './views/password-change/password-change.component';
+import { InvoiceComponent } from './views/invoice/invoice.component';
 
 export const routes: Routes = [
   {
@@ -51,6 +54,7 @@ export const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     canActivate: [AuthGuard],
+    canActivateChild: [AuthorizationGuard],
     data: {
       title: 'Home'
     },
@@ -59,22 +63,36 @@ export const routes: Routes = [
         path: 'users',
         component: UserComponent,
         data: {
-          title: 'Users'
+          title: 'Users',
+          allowedRoles: ['admin']
         }
       },
       {
         path: 'products',
         component: ProductsComponent,
         data: {
-          title: 'Products'
+          title: 'Products',
+          allowedRoles: ['admin', 'moderator']
         }
       },
       {
         path: 'inventory',
         component: InventoryComponent,
         data: {
-          title: 'Inventory'
+          title: 'Inventory',
+          allowedRoles: ['admin', 'moderator']
         }
+      },
+      {
+        path: 'password_change',
+        component: PasswordChangeComponent,
+        data: {
+          title: 'Change Password'
+        }
+      },
+      {
+        path: 'invoice',
+        component: InvoiceComponent
       },
       {
         path: 'orders',
