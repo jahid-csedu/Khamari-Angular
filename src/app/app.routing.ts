@@ -92,7 +92,10 @@ export const routes: Routes = [
       },
       {
         path: 'invoice',
-        component: InvoiceComponent
+        component: InvoiceComponent,
+        data: {
+          title: 'Invoice'
+        }
       },
       {
         path: 'orders',
