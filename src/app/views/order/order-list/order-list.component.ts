@@ -8,6 +8,8 @@ import { Inventory } from '../../../shared/models/inventory.model';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Invoice, Item } from '../../../shared/models/invoice.model';
+import { InvoiceService } from '../../../shared/services/invoice.service';
 
 @Component({
   selector: 'app-order-list',
@@ -22,9 +24,10 @@ export class OrderListComponent implements OnInit {
   productMap = new Map();
   inventoryUnitMap = new Map();
   inventoryProductMap = new Map();
+  inventoryPriceMap = new Map();
   orderStatusMap = new Map();
 
-  constructor(private orderService:OrderService, private inventoryService:InventoryService, private productService:ProductService, private toaster:ToastrService, private router:Router) { }
+  constructor(private orderService:OrderService, private inventoryService:InventoryService, private productService:ProductService, private toaster:ToastrService, private router:Router, private invoiceService:InvoiceService) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -70,6 +73,7 @@ export class OrderListComponent implements OnInit {
       for(let i=0; i< inventories.length; i++) {
         this.inventoryUnitMap.set(inventories[i].id, inventories[i].unit);
         this.inventoryProductMap.set(inventories[i].id, this.productMap.get(inventories[i].productId));
+        this.inventoryPriceMap.set(inventories[i].id, inventories[i].price);
       }
     });
   }
@@ -86,6 +90,28 @@ export class OrderListComponent implements OnInit {
   }
 
   onGenerateInvoice(order: Order) {
+    let invoice = new Invoice();
+    invoice.invoiceNo = order.invoiceNo;
+    invoice.orderDate = order.orderDate.substring(8,10)+"/"+order.orderDate.substring(5,7)+"/"+order.orderDate.substring(0,4);
+    invoice.customerName = order.customerName;
+    invoice.customerPhone = order.customerPhone;
+    invoice.deliveryAddress = order.deliveryAddress;
+    invoice.orderAmount = order.orderAmount;
+    let items:Array<Item> = [];
+    let item:Item;
+    for(let i=0; i< order.items.length; i++) {
+      item = {
+        name: this.inventoryProductMap.get(order.items[i].inventoryId),
+        unit: this.inventoryUnitMap.get(order.items[i].inventoryId),
+        price: this.inventoryPriceMap.get(order.items[i].inventoryId),
+        discount: order.items[i].discount,
+        quantity: order.items[i].quantity,
+        total: (this.inventoryPriceMap.get(order.items[i].inventoryId)-order.items[i].discount)*order.items[i].quantity
+      }
+      items.push(item);
+    }
+    invoice.items = items;
+    this.invoiceService.invoice = invoice;
     this.router.navigateByUrl('/invoice');
   }
 

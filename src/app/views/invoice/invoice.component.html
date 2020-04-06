@@ -10,13 +10,13 @@
                 </div>
             </div>
             <div class="text-right col-6">
-                <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+                <button class="btn btn-info" (click)="generatePDF()"><i class="fa fa-print"></i> Get PDF</button>
             </div>
         </div>
         <hr>
     </div>
-    <div class="invoice overflow-auto">
-        <div style="min-width: 600px">
+    <div class="invoice overflow-auto" id="printArea">
+        <div style="min-width: 600px" class="ml-2 mr-3">
             <header>
                 <div class="row">
                     <div class="col">
@@ -36,13 +36,13 @@
                 <div class="row contacts">
                     <div class="col invoice-to">
                         <div class="text-gray-light">INVOICE TO:</div>
-                        <h2 class="to">John Doe</h2>
-                        <div class="address">796 Silver Harbour, TX 79273, US</div>
-                        <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+                        <h2 class="to">{{ invoice.customerName }}</h2>
+                        <div class="address">{{ invoice.deliveryAddress }}</div>
+                        <div class="phone">{{ invoice.customerPhone }}</div>
                     </div>
                     <div class="col invoice-details">
-                        <h3 class="invoice-id">INVOICE#</h3>
-                        <div class="date">Date of Invoice: 01/10/2018</div>
+                        <h3 class="invoice-id">INVOICE# {{ invoice.invoiceNo }}</h3>
+                        <div class="date">Date of Invoice: {{ invoice.orderDate }}</div>
                     </div>
                 </div>
                 <table border="0" cellspacing="0" cellpadding="0">
@@ -57,25 +57,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="unit">04</td>
+                        <tr *ngFor="let item of invoice.items; let serial = index">
+                            <td class="unit">{{serial+1}}</td>
                             <td class="text-left">
                                 <h3>
-                                    Sundarban Natural Honey
+                                    {{ item.name }}
                                 </h3>
-                                1 KG
+                                {{ item.unit }}
                             </td>
-                            <td class="unit">BDT 0.00</td>
-                            <td class="qty">BDT 100</td>
-                            <td class="unit">0.00</td>
-                            <td class="qty">BDT 0.00</td>
+                            <td class="unit">BDT {{ item.price }}</td>
+                            <td class="qty">BDT {{item.discount}}</td>
+                            <td class="unit">{{item.quantity}}</td>
+                            <td class="qty">BDT {{item.total}}</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3"></td>
                             <td colspan="2">SUBTOTAL</td>
-                            <td>BDT 5,200.00</td>
+                            <td>BDT {{invoice.orderAmount}}</td>
                         </tr>
                         <tr>
                             <td colspan="3"></td>
@@ -85,7 +85,7 @@
                         <tr>
                             <td colspan="3"></td>
                             <td colspan="2">GRAND TOTAL</td>
-                            <td>BDT 6,500.00</td>
+                            <td>BDT {{invoice.orderAmount+shipping}}</td>
                         </tr>
                     </tfoot>
                 </table>
